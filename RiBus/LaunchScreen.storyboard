@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="615-AG-Z2k">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="ITF-s4-iev">
+            <objects>
+                <viewController id="615-AG-Z2k" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="niG-fw-wLf"/>
+                        <viewControllerLayoutGuide type="bottom" id="5G7-8X-Nh5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Aib-Su-Mr4">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default-736h.png" translatesAutoresizingMaskIntoConstraints="NO" id="ISy-cE-CIp">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ISy-cE-CIp" firstAttribute="leading" secondItem="Aib-Su-Mr4" secondAttribute="leading" id="53I-3B-rK0"/>
+                            <constraint firstItem="5G7-8X-Nh5" firstAttribute="top" secondItem="ISy-cE-CIp" secondAttribute="bottom" id="Isz-fu-HJp"/>
+                            <constraint firstItem="ISy-cE-CIp" firstAttribute="top" secondItem="Aib-Su-Mr4" secondAttribute="top" id="Uo9-ZH-rD1"/>
+                            <constraint firstAttribute="trailing" secondItem="ISy-cE-CIp" secondAttribute="trailing" id="jJz-RM-u88"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Scj-9E-VGf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="371" y="332"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Default-736h.png" width="414" height="736"/>
+    </resources>
+</document>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>1</key>
+	<string>Pećine Plumbum - Bivio</string>
+	<key>1A</key>
+	<string>A.K. Miošića - Marčeljeva Draga</string>
+	<key>1B</key>
+	<string>Tower - Strmica</string>
+	<key>2</key>
+	<string>Trsat - Srdoči</string>
+	<key>2A</key>
+	<string>A.K. Miošića - Ivana Zavidića</string>
+	<key>3</key>
+	<string>A.K. Miošića - Grbci</string>
+	<key>3A</key>
+	<string> Jelačićev Trg - Bezjaki</string>
+	<key>4</key>
+	<string>Fiumara - Brašćine</string>
+	<key>4A</key>
+	<string>Sv. Katarina - Pulac</string>
+	<key>5</key>
+	<string>Jelačićev Trg - Drenova</string>
+	<key>5A</key>
+	<string>Drežnička - Tibljaši</string>
+	<key>5B</key>
+	<string>Drenova - Petrci</string>
+	<key>6</key>
+	<string>Podvežica - Novo Naselje</string>
+	<key>7</key>
+	<string>Gornja Vežica - Pehlin</string>
+	<key>7A</key>
+	<string>Sveti Križ - Hosti</string>
+	<key>8</key>
+	<string>(Trsat) Kampus - Torpedo</string>
+	<key>8A</key>
+	<string>Jelačićev Trg -  Kampus</string>
+	<key>9</key>
+	<string>Delta - Baraći</string>
+</dict>
+</plist>
