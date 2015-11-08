@@ -10,3 +10,8 @@ Application uses, for its calculation, official timetables in which a bus should
 
 ##Version 1.0.2
 - Minor bug fixes and support for iOS 9
+
+##Version 1.0.3:
+- Imported Crashlytics
+- Parse Local Datastore
+- New lines 13 and KBC
