@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import SystemConfiguration
 import CoreData
+import Parse
 
 class SaturdayViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -21,6 +22,8 @@ class SaturdayViewController: UIViewController, UITableViewDelegate, UITableView
     var dataForCell: Array<String> = []
     var dict = [String:Array<String>]()
     var clocks: Array<String>!
+    var notice1: String!
+    var notice2: String!
     
     //MARK: Labels connection
     @IBOutlet weak var lineNumber: UILabel!
@@ -71,76 +74,65 @@ class SaturdayViewController: UIViewController, UITableViewDelegate, UITableView
         saturdayTableView.backgroundColor = UIColor(red: 237/255.0, green: 247/255.0, blue: 254/255.0, alpha: 1.0)
         saturdayTableView.separatorStyle = UITableViewCellSeparatorStyle.None
         
-        //MARK: -get data from database
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let contxt: NSManagedObjectContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "RiBusTimetable")
-        do {
-            if let allData = try contxt.executeFetchRequest(fetchRequest) as? [Model]{
-                for (var i=0 ; i < allData.count ; i++){
-                    if allData[i].busname == toPass{
+        let parseQuery = PFQuery(className: "RiBusTimetable")
+        parseQuery.fromLocalDatastore()
+        parseQuery.whereKey("busname", equalTo: toPass)
+        parseQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+            if (error == nil){
+                if let data = objects as? [PFObject]{
+                    for oneData in data{
+                        if let saturday1 = oneData.objectForKey("saturday1") as? Array<String>{
+                            self.saturdayList1 = saturday1
+                        }
+                        if let saturday2 = oneData.objectForKey("saturday2") as? Array<String>{
+                            self.saturdayList2 = saturday2
+                        }
                         
-                        let tmp1 = JSON(allData[i].saturday1)
-                        let toList1 = tmp1.arrayObject as! Array<String>
-                        saturdayList1 = toList1
+                        self.notice1 = oneData.objectForKey("sat1notice") as? String
+                        self.notice2 = oneData.objectForKey("sat2notice") as? String
+                        self.notice.text = self.notice1
+                    }
+                    
+                    if (!self.saturdayList1.isEmpty){
+                        self.dataForCell = self.saturdayList1
+                        //MARK: - create dictionary from array
+                        var arr = Array<String>()
+                        let first = self.dataForCell[0]
+                        let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
+                        var current = start as String
                         
-                        let tmp2 = JSON(allData[i].saturday2)
-                        let toList2 = tmp2.arrayObject as! Array<String>
-                        saturdayList2 = toList2
+                        for (var i=0 ; i<self.dataForCell.count ; i++) {
+                            
+                            let next = self.dataForCell[i]
+                            let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
+                            
+                            
+                            if current != nexts{
+                                self.dict[current] = arr
+                                current = nexts
+                                arr = []
+                            }
+                            arr.append(self.dataForCell[i])
+                            if self.dataForCell.last == next {
+                                self.dict[current] = arr
+                            }
+                            
+                        }
+                        let unSortedClocks1 = [String](self.dict.keys)
+                        self.clocks = unSortedClocks1.sort()
+                        self.saturdayTableView.reloadData()
+                    }
+                    else{
+                        let warning = UILabel(frame: CGRectMake(0, self.view.bounds.height/2, self.view.bounds.width, 20))
+                        warning.textAlignment = NSTextAlignment.Center
+                        warning.textColor = UIColor(red: 32/255.0, green: 22/255.0, blue: 80/255.0, alpha: 1.0)
+                        warning.font = UIFont(name: "Avenir-Medium", size: 15)
+                        warning.text = "This bus does not drive on selected day"
+                        
+                        self.view.addSubview(warning)
                     }
                 }
             }
-        } catch {
-            print("Error while fetching")
-        }
-        
-        if saturdayList1.isEmpty == false{
-            dataForCell = saturdayList1
-            //MARK: - create dictionary from array
-            var arr = Array<String>()
-            let first = dataForCell[0]
-            let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
-            var current = start as String
-            
-            for (var i=0 ; i<dataForCell.count ; i++) {
-                
-                let next = dataForCell[i]
-                let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
-                
-                
-                if current != nexts{
-                    dict[current] = arr
-                    current = nexts
-                    arr = []
-                }
-                arr.append(dataForCell[i])
-                if dataForCell.last == next {
-                    dict[current] = arr
-                }
-                
-            }
-            let unSortedClocks1 = [String](dict.keys)
-            clocks = unSortedClocks1.sort()
-            saturdayTableView.reloadData()
-        }
-        else{
-            let warning = UILabel(frame: CGRectMake(0, self.view.bounds.height/2, self.view.bounds.width, 20))
-            warning.textAlignment = NSTextAlignment.Center
-            warning.textColor = UIColor(red: 32/255.0, green: 22/255.0, blue: 80/255.0, alpha: 1.0)
-            warning.font = UIFont(name: "Avenir-Medium", size: 15)
-            warning.text = "This bus does not drive on selected day"
-            
-            self.view.addSubview(warning)
-        }
-        
-        
-        //MARK: -notice setup
-        let noticeList = ["1","2","6","7","7A"]
-        if noticeList.contains(toPass){
-            notice.text = "G - the bus is driving to the garage"
-        }
-        if toPass == "4A"{
-            notice.text = "* - the bus departes from Brašćine"
         }
     }
     
@@ -222,7 +214,7 @@ class SaturdayViewController: UIViewController, UITableViewDelegate, UITableView
         switch switcher.selectedSegmentIndex{
         case 0:
             model.index = 0
-            if saturdayList1.isEmpty == false{
+            if (!saturdayList1.isEmpty){
                 dataForCell = saturdayList1
                 var arr = Array<String>()
                 let first = dataForCell[0]
@@ -248,11 +240,12 @@ class SaturdayViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 let unSortedClocks1 = [String](dict.keys)
                 clocks = unSortedClocks1.sort()
+                self.notice.text = self.notice1
                 saturdayTableView.reloadData()
             }
         case 1:
             model.index = 1
-            if saturdayList2.isEmpty == false{
+            if (!saturdayList2.isEmpty){
                 dataForCell = saturdayList2
                 var arr = Array<String>()
                 let first = dataForCell[0]
@@ -277,6 +270,7 @@ class SaturdayViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 let unSortedClocks1 = [String](dict.keys)
                 clocks = unSortedClocks1.sort()
+                self.notice.text = self.notice2
                 saturdayTableView.reloadData()
             }
         default:

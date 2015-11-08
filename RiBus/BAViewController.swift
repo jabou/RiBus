@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import SystemConfiguration
 import CoreData
+import Parse
 
 class BAViewController: UIViewController {
     
@@ -63,7 +64,7 @@ class BAViewController: UIViewController {
             self.pickerName.append(addName)
             self.pickerTime.append(addTime)
         }
-        
+        /*
         //MARK: -get data from database
         let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let contxt: NSManagedObjectContext = appDelegate.managedObjectContext
@@ -91,6 +92,33 @@ class BAViewController: UIViewController {
         } catch {
             print("Error fetching data")
         }
+
+        
+        workdayList = DatabaseHelper().getWorkday2(toPass)
+        saturdayList = DatabaseHelper().getSaturday2(toPass)
+        sundayList = DatabaseHelper().getSunday2(toPass)
+        */
+        let parseQuery = PFQuery(className: "RiBusTimetable")
+        parseQuery.fromLocalDatastore()
+        parseQuery.whereKey("busname", equalTo: toPass)
+        parseQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+            if (error == nil){
+                if let data = objects as? [PFObject]{
+                    for oneData in data{
+                        if let workday2 = oneData.objectForKey("workday2") as? Array<String>{
+                            self.workdayList = workday2
+                        }
+                        if let saturday2 = oneData.objectForKey("saturday2") as? Array<String>{
+                            self.saturdayList = saturday2
+                        }
+                        if let sunday2 = oneData.objectForKey("sunday2") as? Array<String>{
+                            self.sundayList = sunday2
+                        }
+                    }
+                }
+            }
+        }
+        
     }
     
     //MARK: Setup PickerView
@@ -372,15 +400,19 @@ class BAViewController: UIViewController {
                 let line8 = WeekDay.shared.dayOfWeek()
             
                 if(line8 == 7 || line8 == 1){
-                    name = ["Torpedo;0","Baračeva II;1","Baračeva I;3","Mlaka;5","KBC Rijeka;6","Željeznički kolodvor;8","Brajda;9","Žabica;10","Riva;10","Tržnica;11","Titov trg;13","ZZZ;15","Mažuranićev trg;17","Bobijevo;18","Vodosprema;19","Paris;20","J. Rakovca;21","Vidikovac;22","Trsat crkva;23","Trsat;24"]
+                    name = ["Torpedo;0","Baračeva II;1","Baračeva I;3","Mlaka;5","KBC Rijeka;6","Željeznički kolodvor;7","Brajda;8","Žabica;9","Riva;10","Tržnica;11","Titov trg;13","ZZZ;15","Mažuranićev trg;17","Bobijevo;18","Vodosprema;19","Paris;20","J. Rakovca;21","Vidikovac;22","Trsat crkva;23","Trsat;24"]
                 }
                 else{
-                    name = ["Torpedo;0","Baračeva II;1","Baračeva I;3","Mlaka;5","KBC Rijeka;6","Željeznički kolodvor;8","Brajda;9","Žabica;10","Riva;10","Tržnica;11","Titov trg;13","ZZZ;15","Mažuranićev trg;17","Bobijevo;18","Vodosprema;19","Paris;20","J. Rakovca;21","Vidikovac;22","Trsat crkva;23","Trsat;24","Trsat groblje;25","Sveučilišna avenija;26"]
+                    name = ["Torpedo;0","Baračeva II;1","Baračeva I;3","Mlaka;5","KBC Rijeka;6","Željeznički kolodvor;7","Brajda;8","Žabica;9","Riva;10","Tržnica;11","Titov trg;13","ZZZ;15","Mažuranićev trg;17","Bobijevo;18","Vodosprema;19","Paris;20","J. Rakovca;21","Vidikovac;22","Trsat crkva;23","Trsat;24","Trsat groblje;25","Sveučilišna avenija; 26","Kampus;27"]
                 }
             case "8A":
                 name = ["Sveučilišna avenija;0","Slavka Krautzeka I;1","Slavka Krautzeka II;1","Teta Roža;3","Kumičićeva;4","Sušački neboder;7","Fiumara;8","Jelačićev trg;11"]
             case "9":
                 name = ["Baraći;0","Sv. Kuzam;2","Draga – Tijani;3","Draga - Sv. Jakov;5","Draga Brig – dom;6","Draga Orlići II;7","Draga Orlići I;8","Draga pod Ohrušvom;9","Sveta Ana;10","KBC Sušak;11","Martina Kontuša;13","OŠ Vežica;14","Radnička;15","D.Gervaisa I Vulk.naselje;16","D.Gervaisa II market;17","D.Gervaisa III;18","Kumičićeva;19","Sušački neboder;21","Fiumara;23","Delta;25"]
+            case "13":
+                name = ["Grohovo;0","Pašac II;5","Pašac I;6","Balda Fućka;7","Gornja Orehovica;9","Donja Orehovica;10","Banska vrata;12","Fiumara;14","Delta;15"]
+            case "KBC":
+                name = ["KBC 3 Poliklinika;0","Nikole Tesle;3","Željeznički kolodvor;4","Brajda;5","Žabica;6","Riva;7","Tržnica;8","Fiumara;9","Piramida;11","Kumičićeva;12","Teta Roža;13","KBC Sušak ulaz;15"]
             default:
                 print("error in geting pickerName")
         }

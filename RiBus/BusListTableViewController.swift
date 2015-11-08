@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Parse
 
 class BusListTableViewController: UITableViewController {
     
@@ -19,34 +20,45 @@ class BusListTableViewController: UITableViewController {
     //MARK: Check if database is full
     override func viewWillAppear(animated: Bool) {
         
-        //MARK: -database connection
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let contxt: NSManagedObjectContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "RiBusTimetable")
-        var fetch: [AnyObject]?
-        do {
-            fetch = try contxt.executeFetchRequest(fetchRequest)
-        } catch _ {
-            fetch = nil
-        }
-        
-        if fetch?.isEmpty == true{
-            if #available(iOS 8.0, *){
-                let databaseError: UIAlertController = UIAlertController(title: "Database error", message: "Your database is empty, please check your internet connection and try again", preferredStyle: UIAlertControllerStyle.Alert)
-                databaseError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: {action in
-                    self.navigationController?.popViewControllerAnimated(true)
-                    return
-                }))
-                self.presentViewController(databaseError, animated: true, completion: nil)
-            }
-            else{
-                let databaseError: UIAlertView = UIAlertView()
-                databaseError.title = "Database error"
-                databaseError.message = "Your database is empty, please check your internet connection and try again"
-                databaseError.addButtonWithTitle("Ok")
-                databaseError.delegate = self
-                databaseError.tag = 1
-                databaseError.show()
+        let localParseQuery = PFQuery(className: "RiBusTimetable")
+        localParseQuery.fromLocalDatastore()
+        localParseQuery.findObjectsInBackgroundWithBlock{ (objects: [AnyObject]?, error: NSError?) -> Void in
+            if error == nil {
+                
+                if(objects!.count == 0){
+                    if #available(iOS 8.0, *){
+                        let databaseError: UIAlertController = UIAlertController(title: "Database error", message: "Your database is empty, please check your internet connection and try again", preferredStyle: UIAlertControllerStyle.Alert)
+                        databaseError.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Cancel, handler: {action in
+                            self.navigationController?.popViewControllerAnimated(true)
+                            return
+                        }))
+                        self.presentViewController(databaseError, animated: true, completion: nil)
+                    }
+                    else{
+                        let databaseError: UIAlertView = UIAlertView()
+                        databaseError.title = "Database error"
+                        databaseError.message = "Your database is empty, please check your internet connection and try again"
+                        databaseError.addButtonWithTitle("Ok")
+                        databaseError.delegate = self
+                        databaseError.tag = 1
+                        databaseError.show()
+                    }
+                } else {
+                    let parseQuery = PFQuery(className: "RiBusTimetable")
+                    parseQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+                        if error == nil {
+                            PFObject.pinAllInBackground(objects, block: { (succeeded: Bool, error: NSError?) -> Void in
+                                if (error != nil) {
+                                    print("Error saving: \(error)")
+                                } else if (!succeeded){
+                                    print("Saving operation failed with no error")
+                                } else {
+                                    print("Data is saved")
+                                }
+                            })
+                        }
+                    }
+                }
             }
         }
     }
@@ -78,7 +90,9 @@ class BusListTableViewController: UITableViewController {
         self.lineDirection = NSDictionary(contentsOfURL: url!)
         self.lineNumber = lineDirection.allKeys
         let swArray = lineNumber as! Array<String>
-        sortedArray = swArray.sort()
+        sortedArray = swArray.sort({(s1,s2) in
+            return s1.localizedStandardCompare(s2) == NSComparisonResult.OrderedAscending
+        })
         
     }
     

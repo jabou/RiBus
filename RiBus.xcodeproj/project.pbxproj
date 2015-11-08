@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06009D5C1BA3257400E391DC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06009D5B1BA3257400E391DC /* SwiftyJSON.swift */; settings = {ASSET_TAGS = (); }; };
+		06009D5C1BA3257400E391DC /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06009D5B1BA3257400E391DC /* SwiftyJSON.swift */; };
 		060368521A15576D0076D96D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 060368511A15576D0076D96D /* AudioToolbox.framework */; };
 		060368561A1557890076D96D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 060368551A1557890076D96D /* CoreGraphics.framework */; };
 		0603685C1A1557A10076D96D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0603685B1A1557A10076D96D /* MobileCoreServices.framework */; };
@@ -15,6 +15,7 @@
 		060C4AB91A04268E00CDD330 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060C4AB81A04268E00CDD330 /* AppDelegate.swift */; };
 		060C4AC01A04268E00CDD330 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 060C4ABF1A04268E00CDD330 /* Images.xcassets */; };
 		060C4ACF1A04268E00CDD330 /* RiBusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060C4ACE1A04268E00CDD330 /* RiBusTests.swift */; };
+		062067521BE647D5003EAB3C /* LocalBusTimetables.sql in Resources */ = {isa = PBXBuildFile; fileRef = 062067511BE647D5003EAB3C /* LocalBusTimetables.sql */; };
 		062E8FF41A8974DC000A11A6 /* mylocation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 062E8FF31A8974DC000A11A6 /* mylocation@2x.png */; };
 		063B4C9A1A59CF65009B48EF /* timetableArrivals.png in Resources */ = {isa = PBXBuildFile; fileRef = 063B4C991A59CF65009B48EF /* timetableArrivals.png */; };
 		063B4C9E1A59D571009B48EF /* maps.png in Resources */ = {isa = PBXBuildFile; fileRef = 063B4C9D1A59D571009B48EF /* maps.png */; };
@@ -23,6 +24,9 @@
 		063C83801AD32E8C00ECEBF1 /* navigation@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 063C837F1AD32E8C00ECEBF1 /* navigation@2x.png */; };
 		063E63741AD347DC00F6A7F2 /* time@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 063E63731AD347DC00F6A7F2 /* time@2x.png */; };
 		0647FC811ABCA47200EF98E5 /* Kampus.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 0647FC801ABCA47200EF98E5 /* Kampus.gpx */; };
+		064804C91BE50343009CB1AC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 069D9ABD1BB97AE4003C8540 /* libsqlite3.tbd */; };
+		064804CD1BE503D6009CB1AC /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 064804CC1BE503D6009CB1AC /* DBManager.m */; };
+		064804D21BE5528E009CB1AC /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064804D11BE5528E009CB1AC /* DatabaseHelper.swift */; };
 		0661D4721AE5073A00DA5C29 /* TimetablesLocal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0661D4701AE5073A00DA5C29 /* TimetablesLocal.xcdatamodeld */; };
 		067AA80E1A0FE39F00B10B12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 067AA80D1A0FE39F00B10B12 /* Main.storyboard */; };
 		068D80841A4A10B20042A136 /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068D80831A4A10B20042A136 /* MapsViewController.swift */; };
@@ -41,17 +45,18 @@
 		069D9AAE1BB97AC8003C8540 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0603685F1A1557B20076D96D /* Security.framework */; };
 		069D9AB41BB97AC8003C8540 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 060368571A1557900076D96D /* CoreLocation.framework */; };
 		069D9AB81BB97AC8003C8540 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 060368531A15577A0076D96D /* CFNetwork.framework */; };
+		06AF14B41BE7B522008EBE42 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AF14B21BE7B522008EBE42 /* Fabric.framework */; };
+		06AF14B51BE7B522008EBE42 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AF14B31BE7B522008EBE42 /* Crashlytics.framework */; };
 		06B988931BC09DE3007A943B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B9888F1BC09DC8007A943B /* Bolts.framework */; };
 		06B988941BC09DE3007A943B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B988901BC09DC8007A943B /* Parse.framework */; };
 		06BAA9BD1BB97FD60050C75B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 069D9ABF1BB97AEB003C8540 /* libz.tbd */; };
-		06BAA9C01BB97FEB0050C75B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 069D9ABD1BB97AE4003C8540 /* libsqlite3.tbd */; };
 		06BB929A1A9A19BC00B6EE7F /* Default-736h@3x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 06BB92991A9A19BC00B6EE7F /* Default-736h@3x~iphone.png */; };
 		06BB929C1A9A1D1900B6EE7F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06BB929B1A9A1D1900B6EE7F /* LaunchScreen.storyboard */; };
 		06C2E9521A05436E000BB740 /* DayBusLines.plist in Resources */ = {isa = PBXBuildFile; fileRef = 06C2E9511A05436E000BB740 /* DayBusLines.plist */; };
 		06C4F38C1A5CAC2C00F3D362 /* SundayHolidaysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C4F38B1A5CAC2C00F3D362 /* SundayHolidaysViewController.swift */; };
 		06C927891AC1AE3B00DB1CFB /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C927881AC1AE3B00DB1CFB /* Helper.swift */; };
 		06C9278B1AC1D67600DB1CFB /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06C9278A1AC1D67600DB1CFB /* iAd.framework */; };
-		06C942701A04F14700BFAB6F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C9426F1A04F14700BFAB6F /* ViewController.swift */; };
+		06C942701A04F14700BFAB6F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C9426F1A04F14700BFAB6F /* MainViewController.swift */; };
 		06C942781A05140700BFAB6F /* BusListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C942771A05140700BFAB6F /* BusListTableViewController.swift */; };
 		06FFC5731A589F14008F6D9A /* TimetableTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FFC5721A589F14008F6D9A /* TimetableTabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -85,6 +90,7 @@
 		060C4ACD1A04268E00CDD330 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		060C4ACE1A04268E00CDD330 /* RiBusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiBusTests.swift; sourceTree = "<group>"; };
 		060C4DFF1B20B1DE005286C2 /* coverage.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = coverage.geojson; sourceTree = "<group>"; };
+		062067511BE647D5003EAB3C /* LocalBusTimetables.sql */ = {isa = PBXFileReference; lastKnownFileType = file; path = LocalBusTimetables.sql; sourceTree = "<group>"; };
 		062E8FF31A8974DC000A11A6 /* mylocation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mylocation@2x.png"; sourceTree = "<group>"; };
 		063B4C991A59CF65009B48EF /* timetableArrivals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timetableArrivals.png; sourceTree = "<group>"; };
 		063B4C9D1A59D571009B48EF /* maps.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = maps.png; sourceTree = "<group>"; };
@@ -93,6 +99,10 @@
 		063C837F1AD32E8C00ECEBF1 /* navigation@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navigation@2x.png"; sourceTree = "<group>"; };
 		063E63731AD347DC00F6A7F2 /* time@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "time@2x.png"; sourceTree = "<group>"; };
 		0647FC801ABCA47200EF98E5 /* Kampus.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Kampus.gpx; sourceTree = "<group>"; };
+		064804CA1BE503D5009CB1AC /* RiBus-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RiBus-Bridging-Header.h"; sourceTree = "<group>"; };
+		064804CB1BE503D6009CB1AC /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		064804CC1BE503D6009CB1AC /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		064804D11BE5528E009CB1AC /* DatabaseHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		0661D4711AE5073A00DA5C29 /* TimetablesLocal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TimetablesLocal.xcdatamodel; sourceTree = "<group>"; };
 		067AA80D1A0FE39F00B10B12 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		0689C2831BC5D4AA006D0892 /* RiBus Widgate.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "RiBus Widgate.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,6 +120,8 @@
 		069D9ABD1BB97AE4003C8540 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		069D9ABF1BB97AEB003C8540 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		06A6A8001A6C760700A80AA0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		06AF14B21BE7B522008EBE42 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = RiBus/Fabric.framework; sourceTree = "<group>"; };
+		06AF14B31BE7B522008EBE42 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = RiBus/Crashlytics.framework; sourceTree = "<group>"; };
 		06B9888F1BC09DC8007A943B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		06B988901BC09DC8007A943B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		06BAA9BE1BB97FDF0050C75B /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -119,7 +131,7 @@
 		06C4F38B1A5CAC2C00F3D362 /* SundayHolidaysViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SundayHolidaysViewController.swift; sourceTree = "<group>"; };
 		06C927881AC1AE3B00DB1CFB /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		06C9278A1AC1D67600DB1CFB /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
-		06C9426F1A04F14700BFAB6F /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		06C9426F1A04F14700BFAB6F /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		06C942771A05140700BFAB6F /* BusListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusListTableViewController.swift; sourceTree = "<group>"; };
 		06FFC5721A589F14008F6D9A /* TimetableTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimetableTabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -129,13 +141,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				064804C91BE50343009CB1AC /* libsqlite3.tbd in Frameworks */,
 				06B988931BC09DE3007A943B /* Bolts.framework in Frameworks */,
 				06B988941BC09DE3007A943B /* Parse.framework in Frameworks */,
-				06BAA9C01BB97FEB0050C75B /* libsqlite3.tbd in Frameworks */,
+				06AF14B41BE7B522008EBE42 /* Fabric.framework in Frameworks */,
 				06BAA9BD1BB97FD60050C75B /* libz.tbd in Frameworks */,
 				069D9AAE1BB97AC8003C8540 /* Security.framework in Frameworks */,
 				0690A57B1AEABCAB003726CF /* CoreData.framework in Frameworks */,
 				06C9278B1AC1D67600DB1CFB /* iAd.framework in Frameworks */,
+				06AF14B51BE7B522008EBE42 /* Crashlytics.framework in Frameworks */,
 				069D9AAC1BB97AC8003C8540 /* SystemConfiguration.framework in Frameworks */,
 				069D9AAA1BB97AC8003C8540 /* MapKit.framework in Frameworks */,
 				069D9AB41BB97AC8003C8540 /* CoreLocation.framework in Frameworks */,
@@ -176,6 +190,8 @@
 		0603684C1A1556B90076D96D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06AF14B21BE7B522008EBE42 /* Fabric.framework */,
+				06AF14B31BE7B522008EBE42 /* Crashlytics.framework */,
 				06B9888F1BC09DC8007A943B /* Bolts.framework */,
 				06B988901BC09DC8007A943B /* Parse.framework */,
 				06BAA9BE1BB97FDF0050C75B /* libsqlite3.0.tbd */,
@@ -239,6 +255,11 @@
 				060C4AB71A04268E00CDD330 /* Info.plist */,
 				06C2E9511A05436E000BB740 /* DayBusLines.plist */,
 				0661D4701AE5073A00DA5C29 /* TimetablesLocal.xcdatamodeld */,
+				064804CB1BE503D6009CB1AC /* DBManager.h */,
+				064804CC1BE503D6009CB1AC /* DBManager.m */,
+				064804CA1BE503D5009CB1AC /* RiBus-Bridging-Header.h */,
+				064804D11BE5528E009CB1AC /* DatabaseHelper.swift */,
+				062067511BE647D5003EAB3C /* LocalBusTimetables.sql */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -303,7 +324,7 @@
 			children = (
 				06009D591BA3256200E391DC /* JSON */,
 				060C4AB81A04268E00CDD330 /* AppDelegate.swift */,
-				06C9426F1A04F14700BFAB6F /* ViewController.swift */,
+				06C9426F1A04F14700BFAB6F /* MainViewController.swift */,
 				06C927881AC1AE3B00DB1CFB /* Helper.swift */,
 				0690A5B11AEBDA81003726CF /* Model.swift */,
 			);
@@ -340,6 +361,7 @@
 				060C4AAF1A04268E00CDD330 /* Sources */,
 				060C4AB01A04268E00CDD330 /* Frameworks */,
 				060C4AB11A04268E00CDD330 /* Resources */,
+				06AF14B11BE7B4F3008EBE42 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -391,7 +413,8 @@
 		060C4AAB1A04268E00CDD330 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0700;
+				LastSwiftMigration = 0710;
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Jasmin Abou Aldan";
 				TargetAttributes = {
@@ -444,6 +467,7 @@
 			files = (
 				0693C0771A62C07F00C64E71 /* menu.png in Resources */,
 				06BB929A1A9A19BC00B6EE7F /* Default-736h@3x~iphone.png in Resources */,
+				062067521BE647D5003EAB3C /* LocalBusTimetables.sql in Resources */,
 				062E8FF41A8974DC000A11A6 /* mylocation@2x.png in Resources */,
 				06C2E9521A05436E000BB740 /* DayBusLines.plist in Resources */,
 				0647FC811ABCA47200EF98E5 /* Kampus.gpx in Resources */,
@@ -475,6 +499,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		06AF14B11BE7B4F3008EBE42 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run bcbeafe6c0dff3bfabd2022ca8c8cc6bf5f44111 2295c5cbae0d8f54571c5d1776ecb89c587ac598451c807a46d0eac632749114";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		060C4AAF1A04268E00CDD330 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -483,10 +523,12 @@
 				06FFC5731A589F14008F6D9A /* TimetableTabBarViewController.swift in Sources */,
 				069D6A521A4DEB5300F8EE69 /* ABViewController.swift in Sources */,
 				06C927891AC1AE3B00DB1CFB /* Helper.swift in Sources */,
+				064804CD1BE503D6009CB1AC /* DBManager.m in Sources */,
 				06C942781A05140700BFAB6F /* BusListTableViewController.swift in Sources */,
 				069D6A541A4DEB5A00F8EE69 /* BAViewController.swift in Sources */,
-				06C942701A04F14700BFAB6F /* ViewController.swift in Sources */,
+				06C942701A04F14700BFAB6F /* MainViewController.swift in Sources */,
 				068D80841A4A10B20042A136 /* MapsViewController.swift in Sources */,
+				064804D21BE5528E009CB1AC /* DatabaseHelper.swift in Sources */,
 				068D80C41A4AFEE50042A136 /* SaturdayViewController.swift in Sources */,
 				068D80881A4A1CD30042A136 /* SideMenu.swift in Sources */,
 				0690A5B21AEBDA81003726CF /* Model.swift in Sources */,
@@ -611,12 +653,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/RiBus",
 				);
 				INFOPLIST_FILE = RiBus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -629,6 +673,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JaMaCo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4d0090fb-9bb1-4c90-927f-304b66cb4724";
+				SWIFT_OBJC_BRIDGING_HEADER = "RiBus/RiBus-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -638,12 +684,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/RiBus",
 				);
 				INFOPLIST_FILE = RiBus/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -656,6 +704,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JaMaCo.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0d463844-72d4-469d-8503-2b720dc681ce";
+				SWIFT_OBJC_BRIDGING_HEADER = "RiBus/RiBus-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

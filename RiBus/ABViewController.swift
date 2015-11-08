@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import SystemConfiguration
 import CoreData
+import Parse
 
 class ABViewController: UIViewController {
     
@@ -65,33 +66,25 @@ class ABViewController: UIViewController {
             self.pickerTime.append(addTime)
         }
         
-        //MARK: -get data from database
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let contxt: NSManagedObjectContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "RiBusTimetable")
-        
-        do {
-            if let allData = try contxt.executeFetchRequest(fetchRequest) as? [Model]{
-                for (var i = 0 ; i < allData.count ; i++){
-                    if (allData[i].busname == toPass){
-                        
-                        let tmp1 = JSON(allData[i].workday1)
-                        let toList1 = tmp1.arrayObject as! Array<String>
-                        workdayList = toList1
-                        
-                        let tmp2 = JSON(allData[i].saturday1)
-                        let toList2 = tmp2.arrayObject as! Array<String>
-                        saturdayList = toList2
-                        
-                        let tmp3 = JSON(allData[i].sunday1)
-                        let toList3 = tmp3.arrayObject as! Array<String>
-                        sundayList = toList3
+        let parseQuery = PFQuery(className: "RiBusTimetable")
+        parseQuery.fromLocalDatastore()
+        parseQuery.whereKey("busname", equalTo: toPass)
+        parseQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+            if (error == nil){
+                if let data = objects as? [PFObject]{
+                    for oneData in data{
+                        if let workday1 = oneData.objectForKey("workday1") as? Array<String>{
+                            self.workdayList = workday1
+                        }
+                        if let saturday1 = oneData.objectForKey("saturday1") as? Array<String>{
+                            self.saturdayList = saturday1
+                        }
+                        if let sunday1 = oneData.objectForKey("sunday1") as? Array<String>{
+                            self.sundayList = sunday1
+                        }
                     }
                 }
             }
-
-        } catch {
-            print("Error fetching data")
         }
         
     }
@@ -374,15 +367,19 @@ class ABViewController: UIViewController {
                 let line8 = WeekDay.shared.dayOfWeek()
             
                 if(line8 == 7 || line8 == 1){
-                    name = ["Trsat;0","Trsat groblje;1","Slavka Krautzeka I;2","Slavka Krautzeka II;3","Mihanovićeva;4","Pošta;5","Paris;6","Vodosprema;7","Bobijevo;9","ZZZ;11","Ivana Grahovca;14","Žrtava fašizma;15","Pomerio park;16","F.I. Guaride;17","Nikole Tesle;19","KBC Rijeka;20","Mlaka - Baračeva;22","Baračeva I;23","Baračeva II;25","Torpedo;27"]
+                    name = ["Trsat;0","Trsat groblje;1","Slavka Krautzeka I;2","Slavka Krautzeka II;3","Mihanovićeva;4","Pošta;5","Paris;6","Vodosprema;7","Bobijevo;9","ZZZ;10","Fiumara;14","Trg RH;17","Riječki neboder;18","Brajda;19","Željeznički kolodvor;20","KBC Rijeka;21","Mlaka – Baračeva;23","Baračeva I;24","Baračeva II;26","Torpedo;28"]
                 }
                 else{
-                    name = ["Sveučilišna avenija;0","Radmile Matejčić;1","KBC Sušak;3","Mihanovićeva;4","Pošta;5","Paris;6","Vodosprema;7","Bobijevo;9","ZZZ;11","Ivana Grahovca;14","Žrtava fašizma;15","Pomerio park;16","F.I. Guaride;17","Nikole Tesle;19","KBC Rijeka;20","Mlaka - Baračeva;22","Baračeva I;23","Baračeva II;25","Torpedo;27"]
+                    name = ["Kampus;0","KBC Sušak;2","Mihanovićeva;3","Pošta;4","Paris;5","Vodosprema;6","Bobijevo;8","ZZZ;9","Fiumara;13","Trg RH;16","Riječki neboder;17","Brajda;18","Željeznički kolodvor;19","KBC Rijeka;20","Mlaka – Baračeva;22","Baračeva I;23","Baračeva II;25","Torpedo;27"]
                 }
             case "8A":
                 name = ["Jelačićev trg;0","Fiumara;2","Piramida;4","Kumičićeva;6","Teta Roža;7","KBC Sušak;9","Radmila Matejčić;11","Sveučilišna avenija;13"]
             case "9":
                 name = ["Delta;0","Piramida;2","Kumičićeva;3","D.Gervaisa III;4","D.Gervaisa II market;6","D.Gervaisa I Vulk.naselje;7","Radnička;9","OŠ Vežica;11","Podvežica  centar;12","Zdravka Kučića III;14","Sveta Ana;15","Draga pod Ohrušvom;17"," Orlići I;18","Draga Orlići II;19","Draga Brig – dom;20","Draga - Sv. Jakov;21","Draga – Tijani;22","Sv. Kuzam;23","Baraći;25"]
+            case "13":
+                name = ["Delta;0","Banska vrata;3","Donja Orehovica;5","Gornja Orehovica;6","Balda Fućka;8","Pašac I;10","Pašac II;11","Grohovski put;14","Grohovo;15"]
+            case "KBC":
+                name = ["KBC Sušak ulaz;0","Teta Roža;2","Kumičićeva;3","Sušački neboder;5","Fiumara;6","Trg RH;9","Riječki neboder;10","Brajda;11","Željeznički kolodvor;12","KBC 1 porta;14","KBC 2 hitna;15","KBC 3 Poliklinika;16"]
             default:
                 print("error in geting pickerName")
         }

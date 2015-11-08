@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import SystemConfiguration
 import CoreData
+import Parse
 
 class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -21,6 +22,8 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
     var dataForCell: Array<String> = []
     var dict = [String:Array<String>]()
     var clocks: Array<String>!
+    var notice1: String!
+    var notice2: String!
     
     //MARK: Labels connection
     @IBOutlet weak var lineNumber: UILabel!
@@ -73,90 +76,69 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
         workdayTableView.backgroundColor = UIColor(red: 237/255.0, green: 247/255.0, blue: 254/255.0, alpha: 1.0)
         workdayTableView.separatorStyle = UITableViewCellSeparatorStyle.None
 
-        //MARK: -get data from database
-        let appDelegate: AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let contxt: NSManagedObjectContext = appDelegate.managedObjectContext
-        let fetchRequest = NSFetchRequest(entityName: "RiBusTimetable")
-        do {
-            if let allData = try contxt.executeFetchRequest(fetchRequest) as? [Model]{
-                for (var i=0 ; i < allData.count ; i++){
-                    if allData[i].busname == toPass{
+        let parseQuery = PFQuery(className: "RiBusTimetable")
+        parseQuery.fromLocalDatastore()
+        parseQuery.whereKey("busname", equalTo: toPass)
+        parseQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+            if (error == nil){
+                if let data = objects as? [PFObject]{
+                    for oneData in data{
+                        if let workday1 = oneData.objectForKey("workday1") as? Array<String>{
+                            self.workdayList1 = workday1
+                        }
+                        if let workday2 = oneData.objectForKey("workday2") as? Array<String>{
+                            self.workdayList2 = workday2
+                        }
                         
-                        let tmp1 = JSON(allData[i].workday1)
-                        let toList1 = tmp1.arrayObject as! Array<String>
-                        workdayList1 = toList1
-                        
-                        let tmp2 = JSON(allData[i].workday2)
-                        let toList2 = tmp2.arrayObject as! Array<String>
-                        workdayList2 = toList2
+                        self.notice1 = oneData.objectForKey("wd1notice") as? String
+                        self.notice2 = oneData.objectForKey("wd2notice") as? String
+                        self.notice.text = self.notice1
                     }
+                    if (!self.workdayList1.isEmpty){
+                        self.dataForCell = self.workdayList1
+                        //MARK: - create dictionary from array
+                        var arr = Array<String>()
+                        let first = self.dataForCell[0]
+                        let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
+                        var current = start as String
+                        
+                        for (var i=0 ; i<self.dataForCell.count ; i++) {
+                            
+                            let next = self.dataForCell[i]
+                            let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
+                            
+                            
+                            if current != nexts{
+                                self.dict[current] = arr
+                                current = nexts
+                                arr = []
+                            }
+                            arr.append(self.dataForCell[i])
+                            if self.dataForCell.last == next {
+                                self.dict[current] = arr
+                            }
+                            
+                        }
+                        
+                        let unSortedClocks1 = [String](self.dict.keys)
+                        self.clocks = unSortedClocks1.sort()
+                        
+                        self.workdayTableView.reloadData()
+                    }
+                    else{
+                        let warning = UILabel(frame: CGRectMake(0, self.view.bounds.height/2, self.view.bounds.width, 20))
+                        warning.textAlignment = NSTextAlignment.Center
+                        warning.textColor = UIColor(red: 32/255.0, green: 22/255.0, blue: 80/255.0, alpha: 1.0)
+                        warning.font = UIFont(name: "Avenir-Medium", size: 15)
+                        warning.text = "This bus does not drive on selected day"
+                        
+                        self.view.addSubview(warning)
+                    }
+                    
                 }
+            } else{
+                print(error)
             }
-        } catch {
-            print("Error fetching data")
-        }
-        
-        if workdayList1.isEmpty == false{
-            dataForCell = workdayList1
-            
-            //MARK: - create dictionary from array
-            var arr = Array<String>()
-            let first = dataForCell[0]
-            let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
-            var current = start as String
-            
-            for (var i=0 ; i<dataForCell.count ; i++) {
-                
-                let next = dataForCell[i]
-                let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
-                
-                
-                if current != nexts{
-                    dict[current] = arr
-                    current = nexts
-                    arr = []
-                }
-                arr.append(dataForCell[i])
-                if dataForCell.last == next {
-                    dict[current] = arr
-                }
-                
-            }
-            
-            let unSortedClocks1 = [String](dict.keys)
-            clocks = unSortedClocks1.sort()
-            
-            workdayTableView.reloadData()
-        }
-        else{
-            let warning = UILabel(frame: CGRectMake(0, self.view.bounds.height/2, self.view.bounds.width, 20))
-            warning.textAlignment = NSTextAlignment.Center
-            warning.textColor = UIColor(red: 32/255.0, green: 22/255.0, blue: 80/255.0, alpha: 1.0)
-            warning.font = UIFont(name: "Avenir-Medium", size: 15)
-            warning.text = "This bus does not drive on selected day"
-            
-            self.view.addSubview(warning)
-        }
-        
-        //MARK: -notice setup
-        let noticeList = ["1","2","2A","4","6","7","7A","8"]
-            
-        if noticeList.contains(toPass){
-                notice.text = "G - the bus is driving to the garage"
-        }
-        switch toPass{
-        case "1B":
-            notice.text = "* - the bus departes from Trsat to Strmica"
-        case "3A":
-            notice.text = "* - during school, bus drives to Zamet trznica"
-        case "4A":
-            notice.text = "* - the bus departes from Brašćine"
-        case "5A":
-            notice.text = "* - the bus departes from Ž.Kolodvor to Tibljaši"
-        case "5B":
-            notice.text = "* - during school, bus drives from OŠ F. Franković"
-        default:
-            break
         }
     }
     
@@ -204,8 +186,9 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let sortedDict = dict.sort{$0.0 < $1.0}
         var i = 0
-        let cell = tableView.dequeueReusableCellWithIdentifier("workdaycell", forIndexPath: indexPath) as UITableViewCell
+        dataForCell.removeAll()
         
+        let cell = tableView.dequeueReusableCellWithIdentifier("workdaycell", forIndexPath: indexPath) as UITableViewCell
         cell.backgroundColor = UIColor(red: 237/255.0, green: 247/255.0, blue: 254/255.0, alpha: 0.5)
         cell.textLabel?.textColor = UIColor(red: 32/255.0, green: 22/255.0, blue: 80/255.0, alpha: 1.0)
         cell.textLabel?.textAlignment = NSTextAlignment.Center
@@ -216,6 +199,7 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             i++
         }
+        
         
         return cell
     }
@@ -230,17 +214,17 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
         tmp = Array(tmp.filter{ $0 != "" }.reverse())
         return tmp.joinWithSeparator(" - ")
     }
+
     
     //MARK: - switcher action
     @IBAction func switcherAction(sender: UISegmentedControl){
         
         let model = (self.tabBarController as! TimetableTabBarViewController).indexModel
-
         switch switcher.selectedSegmentIndex{
         case 0:
             //selectIndex = 0
             model.index = 0
-            if workdayList1.isEmpty == false{
+            if (!workdayList1.isEmpty){
                 dataForCell = workdayList1
                 var arr = Array<String>()
                 let first = dataForCell[0]
@@ -266,11 +250,12 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 let unSortedClocks1 = [String](dict.keys)
                 clocks = unSortedClocks1.sort()
+                self.notice.text = self.notice1
                 workdayTableView.reloadData()
             }
         case 1:
             model.index = 1
-            if workdayList2.isEmpty == false{
+            if (!workdayList2.isEmpty){
                 dataForCell = workdayList2
                 var arr = Array<String>()
                 let first = dataForCell[0]
@@ -295,6 +280,7 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
                 }
                 let unSortedClocks1 = [String](dict.keys)
                 clocks = unSortedClocks1.sort()
+                self.notice.text = self.notice2
                 workdayTableView.reloadData()
             }
         default:
