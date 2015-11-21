@@ -187,12 +187,14 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
         let sortedDict = dict.sort{$0.0 < $1.0}
         var i = 0
         dataForCell.removeAll()
+
         
         let cell = tableView.dequeueReusableCellWithIdentifier("workdaycell", forIndexPath: indexPath) as UITableViewCell
+        
         cell.backgroundColor = UIColor(red: 237/255.0, green: 247/255.0, blue: 254/255.0, alpha: 0.5)
         cell.textLabel?.textColor = UIColor(red: 32/255.0, green: 22/255.0, blue: 80/255.0, alpha: 1.0)
         cell.textLabel?.textAlignment = NSTextAlignment.Center
-        
+                
         for (_,value) in sortedDict{
             if indexPath.section == i{
                 cell.textLabel?.text = value[indexPath.row]
@@ -200,9 +202,10 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
             i++
         }
         
-        
+
         return cell
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -225,6 +228,8 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
             //selectIndex = 0
             model.index = 0
             if (!workdayList1.isEmpty){
+                dict.removeAll()
+                workdayTableView.reloadData()
                 dataForCell = workdayList1
                 var arr = Array<String>()
                 let first = dataForCell[0]
@@ -256,6 +261,8 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
         case 1:
             model.index = 1
             if (!workdayList2.isEmpty){
+                dict.removeAll()
+                workdayTableView.reloadData()
                 dataForCell = workdayList2
                 var arr = Array<String>()
                 let first = dataForCell[0]

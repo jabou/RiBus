@@ -225,6 +225,8 @@ class SundayHolidaysViewController: UIViewController, UITableViewDelegate, UITab
         case 0:
             model.index = 0
             if (!sundayList1.isEmpty){
+                dict.removeAll()
+                sundayTableView.reloadData()
                 dataForCell = sundayList1
                 var arr = Array<String>()
                 let first = dataForCell[0]
@@ -256,6 +258,8 @@ class SundayHolidaysViewController: UIViewController, UITableViewDelegate, UITab
         case 1:
             model.index = 1
             if (!sundayList2.isEmpty){
+                dict.removeAll()
+                sundayTableView.reloadData()
                 dataForCell = sundayList2
                 var arr = Array<String>()
                 let first = dataForCell[0]
