@@ -8,6 +8,10 @@ Idea for this app came out of sheer need. Students, tourists and citizens often 
 
 Application uses, for its calculation, official timetables in which a bus should be on station. Currently, it does not show if the bus came earlier on a station or is it late.
 
+##Version 1.0
+- Feature 1
+- Feature 2
+
 ##Version 1.0.2
 - Minor bug fixes and support for iOS 9
 
