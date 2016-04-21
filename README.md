@@ -26,3 +26,6 @@ Application uses, for its calculation, official timetables in which a bus should
 - Imported Crashlytics
 - Parse Local Datastore
 - New lines 13 and KBC
+
+##Version 1.0.4:
+- All data transfered on Parse datastore
