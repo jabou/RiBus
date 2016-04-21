@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SideMenuDelegate{
-    func sideMenuDidSelectButtonAtIndex(index: Int,section: Int)
+    func sideMenuDidSelectButtonAtIndex(tableView: UITableView, index: Int,section: Int)
 }
 
 class SideMenu: NSObject, SideMenuTableViewControllerDelegate {
@@ -89,8 +89,8 @@ class SideMenu: NSObject, SideMenuTableViewControllerDelegate {
     }
     
     //MARK: -Send index and section ID in delegate
-    func sideMenuControlDidSelectRow(indexPath: NSIndexPath) {
-        delegate?.sideMenuDidSelectButtonAtIndex(indexPath.row, section: indexPath.section)
+    func sideMenuControlDidSelectRow(tableView: UITableView, indexPath: NSIndexPath) {
+        delegate?.sideMenuDidSelectButtonAtIndex(tableView, index: indexPath.row, section: indexPath.section)
     }
    
 }

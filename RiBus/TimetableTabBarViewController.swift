@@ -27,7 +27,7 @@ class TimetableTabBarViewController: UITabBarController {
         self.navigationItem.title = "Timetable"
         
         let timeImage = UIImage(named: "time")
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: timeImage, style: UIBarButtonItemStyle.Plain, target: self, action: Selector("arrivalsClicked"))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: timeImage, style: UIBarButtonItemStyle.Plain, target: self, action: #selector(TimetableTabBarViewController.arrivalsClicked))
         send = toPass
         
         //remove "Back" name

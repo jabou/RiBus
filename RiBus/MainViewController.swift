@@ -52,12 +52,14 @@ class MainViewController: UIViewController {
     
     func parseQuery(isFirstTime: Bool){
         
+        //MARK: Storing timetables
+        
         if (isFirstTime){
             ActivityIndicator.shared.startAnimating(self.view, title: "Retrieving and storing data...")
         }
 
-        let parseQuery = PFQuery(className: "RiBusTimetable")
-        parseQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+        let parseQuery1 = PFQuery(className: "RiBusTimetable")
+        parseQuery1.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             if error == nil {
                 PFObject.pinAllInBackground(objects, block: { (succeeded: Bool, error: NSError?) -> Void in
                     if (error != nil) {
@@ -65,10 +67,47 @@ class MainViewController: UIViewController {
                     } else if (!succeeded){
                         print("Saving operation failed with no error")
                     } else {
-                        print("Data is saved")
+                        print("Timetables are saved")
                     }
                 })
             }
+            
+            
+            //MARK: Storing departures
+            
+            let parseQuery2 = PFQuery(className: "RiBusDepartments")
+            parseQuery2.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+                if error == nil {
+                    PFObject.pinAllInBackground(objects, block: { (succeeded: Bool, error: NSError?) -> Void in
+                        if (error != nil) {
+                            print("Error saving: \(error)")
+                        } else if (!succeeded){
+                            print("Saving operation failed with no error")
+                        } else {
+                            print("Departments are saved")
+                        }
+                    })
+                }
+                
+                //MARK: Storing coordinates
+                
+                let parseQuery3 = PFQuery(className: "RiBusCoordinates")
+                parseQuery3.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+                    if error == nil {
+                        PFObject.pinAllInBackground(objects, block: { (succeeded: Bool, error: NSError?) -> Void in
+                            if (error != nil) {
+                                print("Error saving: \(error)")
+                            } else if (!succeeded){
+                                print("Saving operation failed with no error")
+                            } else {
+                                print("Coordinates are saved")
+                            }
+                        })
+                    }
+                }
+            }
+            
+            
             if (isFirstTime){
                 ActivityIndicator.shared.stopAnimating()
             }

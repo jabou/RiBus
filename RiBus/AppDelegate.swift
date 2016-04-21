@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Connection to Parse.com
         Parse.enableLocalDatastore()
-        Parse.setApplicationId("nQ0cWqzhn2J7J05dxs7OwkHEZqEIHr7am3WGbqGW", clientKey: "sqcEWs2ZZ08mK7ADJHBDzKAmSN904JOS43d7uFVe")
+        Parse.setApplicationId("hNdCOyQrE4o0L9YEoK1tiuzlXsAHqnt2cnUfth4H", clientKey: "Wf44FoTiXm2CUlrID1cI5wxsI6axSC2Jt50PPP9w")
         
         PFAnalytics.trackAppOpenedWithLaunchOptionsInBackground(launchOptions, block: nil)
         PFAnonymousUtils.logInWithBlock {
@@ -67,8 +67,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
         
-        let parseQuery = PFQuery(className: "RiBusTimetable")
-        parseQuery.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+        //MARK: - Update data
+        //MARK: Storing timetables
+
+        let parseQuery1 = PFQuery(className: "RiBusTimetable")
+        parseQuery1.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
             if error == nil {
                 PFObject.pinAllInBackground(objects, block: { (succeeded: Bool, error: NSError?) -> Void in
                     if (error != nil) {
@@ -76,9 +79,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     } else if (!succeeded){
                         print("Saving operation failed with no error")
                     } else {
-                        print("Data is saved")
+                        print("Timetables are updated")
                     }
                 })
+            }
+            
+            
+            //MARK: Storing departures
+            
+            let parseQuery2 = PFQuery(className: "RiBusDepartments")
+            parseQuery2.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+                if error == nil {
+                    PFObject.pinAllInBackground(objects, block: { (succeeded: Bool, error: NSError?) -> Void in
+                        if (error != nil) {
+                            print("Error saving: \(error)")
+                        } else if (!succeeded){
+                            print("Saving operation failed with no error")
+                        } else {
+                            print("Departments are updated")
+                        }
+                    })
+                }
+                
+                //MARK: Storing coordinates
+                
+                let parseQuery3 = PFQuery(className: "RiBusCoordinates")
+                parseQuery3.findObjectsInBackgroundWithBlock { (objects: [AnyObject]?, error: NSError?) -> Void in
+                    if error == nil {
+                        PFObject.pinAllInBackground(objects, block: { (succeeded: Bool, error: NSError?) -> Void in
+                            if (error != nil) {
+                                print("Error saving: \(error)")
+                            } else if (!succeeded){
+                                print("Saving operation failed with no error")
+                            } else {
+                                print("Coordinates are updated")
+                            }
+                        })
+                    }
+                }
             }
         }
         

@@ -53,6 +53,10 @@ public class ActivityIndicator{
         activityIndicator.stopAnimating()
         backgroundView.removeFromSuperview()
     }
+    
+    public func isAnimating() -> Bool{
+        return activityIndicator.isAnimating()
+    }
 }
 
 public class Connection{

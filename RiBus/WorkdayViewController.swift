@@ -99,13 +99,13 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
                         //MARK: - create dictionary from array
                         var arr = Array<String>()
                         let first = self.dataForCell[0]
-                        let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
+                        let start = first.substringWithRange(first.startIndex ..< first.startIndex.advancedBy(2))
                         var current = start as String
                         
-                        for (var i=0 ; i<self.dataForCell.count ; i++) {
+                        for i in 0  ..< self.dataForCell.count {
                             
                             let next = self.dataForCell[i]
-                            let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
+                            let nexts = next.substringWithRange(next.startIndex ..< next.startIndex.advancedBy(2)) as String
                             
                             
                             if current != nexts{
@@ -156,7 +156,7 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
             if section == i{
                 return value.count
             }
-            i++
+            i += 1
         }
         return 0
     }
@@ -168,7 +168,7 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
         label.textColor = UIColor(red: 24/255.0, green: 11/255.0, blue: 64/255.0, alpha: 1.0)
         label.backgroundColor = UIColor(red: 216/255.0, green: 227/255.0, blue: 236/255.0, alpha: 1.0)
 
-        for (var i = 0 ; i<dict.count ; i++){
+        for i in 0 ..< dict.count {
             
             label.text = "  \(clocks[i]) h"
             if section == i{
@@ -199,7 +199,7 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
             if indexPath.section == i{
                 cell.textLabel?.text = value[indexPath.row]
             }
-            i++
+            i += 1
         }
         
 
@@ -233,13 +233,13 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
                 dataForCell = workdayList1
                 var arr = Array<String>()
                 let first = dataForCell[0]
-                let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
+                let start = first.substringWithRange(first.startIndex ..< first.startIndex.advancedBy(2))
                 var current = start as String
                 
-                for (var i=0 ; i<dataForCell.count ; i++) {
+                for i in 0..<dataForCell.count{
                     
                     let next = dataForCell[i]
-                    let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
+                    let nexts = next.substringWithRange(next.startIndex ..< next.startIndex.advancedBy(2)) as String
                     
                     
                     if current != nexts{
@@ -266,13 +266,13 @@ class WorkdayViewController: UIViewController, UITableViewDelegate, UITableViewD
                 dataForCell = workdayList2
                 var arr = Array<String>()
                 let first = dataForCell[0]
-                let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
+                let start = first.substringWithRange(first.startIndex ..< first.startIndex.advancedBy(2))
                 var current = start as String
                 
-                for (var i=0 ; i<dataForCell.count ; i++) {
+                for i in 0..<dataForCell.count{
                     
                     let next = dataForCell[i]
-                    let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
+                    let nexts = next.substringWithRange(next.startIndex ..< next.startIndex.advancedBy(2)) as String
                     
                     
                     if current != nexts{

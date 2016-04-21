@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SideMenuTableViewControllerDelegate{
-    func sideMenuControlDidSelectRow(indexPath: NSIndexPath)
+    func sideMenuControlDidSelectRow(tableView: UITableView, indexPath: NSIndexPath)
 }
 
 class SideMenuTableViewController: UITableViewController {
@@ -72,6 +72,6 @@ class SideMenuTableViewController: UITableViewController {
     //MARK: -Index ID in delegate, and deselect selection
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.tableView.deselectRowAtIndexPath(tableView.indexPathForSelectedRow!, animated: true)
-        delegate?.sideMenuControlDidSelectRow(indexPath)
+        delegate?.sideMenuControlDidSelectRow(tableView, indexPath: indexPath)
     }
 }

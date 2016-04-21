@@ -98,14 +98,13 @@ class SundayHolidaysViewController: UIViewController, UITableViewDelegate, UITab
                         //MARK: - create dictionary from array
                         var arr = Array<String>()
                         let first = self.dataForCell[0]
-                        let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
+                        let start = first.substringWithRange(first.startIndex ..< first.startIndex.advancedBy(2))
                         var current = start as String
                         
-                        for (var i=0 ; i<self.dataForCell.count ; i++) {
+                        for i in 0 ..< self.dataForCell.count {
                             
                             let next = self.dataForCell[i]
-                            let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
-                            
+                            let nexts = next.substringWithRange(next.startIndex ..< next.startIndex.advancedBy(2)) as String
                             
                             if current != nexts{
                                 self.dict[current] = arr
@@ -159,7 +158,7 @@ class SundayHolidaysViewController: UIViewController, UITableViewDelegate, UITab
             if section == i{
                 return value.count
             }
-            i++
+            i += 1
         }
         return 0
     }
@@ -171,7 +170,7 @@ class SundayHolidaysViewController: UIViewController, UITableViewDelegate, UITab
         label.textColor = UIColor(red: 24/255.0, green: 11/255.0, blue: 64/255.0, alpha: 1.0)
         label.backgroundColor = UIColor(red: 216/255.0, green: 227/255.0, blue: 236/255.0, alpha: 1.0)
         
-        for (var i = 0 ; i<dict.count ; i++){
+        for i in 0 ..< dict.count {
             
             label.text = "  \(clocks[i]) h"
             if section == i{
@@ -199,7 +198,7 @@ class SundayHolidaysViewController: UIViewController, UITableViewDelegate, UITab
             if indexPath.section == i{
                 cell.textLabel?.text = value[indexPath.row]
             }
-            i++
+            i += 1
         }
         
         return cell
@@ -230,13 +229,13 @@ class SundayHolidaysViewController: UIViewController, UITableViewDelegate, UITab
                 dataForCell = sundayList1
                 var arr = Array<String>()
                 let first = dataForCell[0]
-                let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
+                let start = first.substringWithRange(first.startIndex ..< first.startIndex.advancedBy(2))
                 var current = start as String
                 
-                for (var i=0 ; i<dataForCell.count ; i++) {
+                for i in 0 ..< dataForCell.count {
                     
                     let next = dataForCell[i]
-                    let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
+                    let nexts = next.substringWithRange(next.startIndex ..< next.startIndex.advancedBy(2)) as String
                     
                     
                     if current != nexts{
@@ -259,17 +258,17 @@ class SundayHolidaysViewController: UIViewController, UITableViewDelegate, UITab
             model.index = 1
             if (!sundayList2.isEmpty){
                 dict.removeAll()
-                sundayTableView.reloadData()
+                sundayTableView.reloadData()    
                 dataForCell = sundayList2
                 var arr = Array<String>()
                 let first = dataForCell[0]
-                let start = first.substringWithRange(Range(start: first.startIndex, end: first.startIndex.advancedBy(2)))
+                let start = first.substringWithRange(first.startIndex ..< first.startIndex.advancedBy(2))
                 var current = start as String
                 
-                for (var i=0 ; i<dataForCell.count ; i++) {
+                for i in 0 ..< dataForCell.count{
                     
                     let next = dataForCell[i]
-                    let nexts = next.substringWithRange(Range(start: next.startIndex, end: next.startIndex.advancedBy(2))) as String
+                    let nexts = next.substringWithRange(next.startIndex ..< next.startIndex.advancedBy(2)) as String
                     
                     
                     if current != nexts{

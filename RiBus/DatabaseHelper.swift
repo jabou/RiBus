@@ -101,7 +101,7 @@ class DatabaseHelper {
         let queryResult = JSON(dbManager.loadDataFromDB(query))
         var busNameList = [String]()
         
-        for (var i=0; i<queryResult.count; i++){
+        for i in 0 ..< queryResult.count {
             busNameList.append((queryResult[i][0]).stringValue)
         }
         
