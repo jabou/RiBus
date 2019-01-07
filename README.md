@@ -2,7 +2,8 @@
 
 <b>iOS developer:</b> Abou Aldan Jasmin<br>
 <b>Android developer:</b> Loncar Mario<br>
-<b>Project was developed as part of:</b> Undergraduate final thesis <i>Application development for iOS</i> (Rijeka, 2015) and MIPRO International ICT Convention (Opatija, May 25, 2015, Digital Economy and Government/Local Government/Public Services) with thesis <i>Citybus Mobile Application</i><br>
+<b>Project was developed as part of:</b> Undergraduate final thesis <i>Application development for iOS</i> (Rijeka, 2015) and MIPRO International ICT Convention (Opatija, May 25, 2015, Digital Economy and Government/Local Government/Public Services) with thesis <i>Citybus Mobile Application</i><br><br>
+<b>Development of this project was stoped in 2016 so the codebase is not up to date with the latest standards of the iOS development and it is possible that will not run without some major changes.</b><br><br>
 <b>Description:</b> RiBus is beautifully designed app that gives you all info about local bus lines in Rijeka.
  
 It provides timetable for city bus lines, locations of bus stations and estimated departing time of the next bus for the selected line. It also helps you not to wander looking for bus stop by providing shortest route from your location to certain bus stop.
@@ -24,19 +25,19 @@ Application uses, for its calculation, official timetables in which a bus should
 ![direction](https://cloud.githubusercontent.com/assets/11990539/14766954/5e53fe02-0a1a-11e6-94ba-71c468c686de.png "Select direction")
 ![sel dir](https://cloud.githubusercontent.com/assets/11990539/14766955/5e55f982-0a1a-11e6-9f44-d4561fd1bb21.png "Showing only selected line and direction")
 
-##Version 1.0
+## Version 1.0
 - Daily lines (1, 1A, 1B, 2, 2A, 3, 3A, 4, 4A, 5, 5A, 5B, 6, 7, 9)
 - Timetables
 - Bus Time Arrival Calculation
 - Parse online database
 
-##Version 1.0.2
+## Version 1.0.2
 - Minor bug fixes and support for iOS 9
 
-##Version 1.0.3:
+## Version 1.0.3:
 - Imported Crashlytics
 - Parse Local Datastore
 - New lines 13 and KBC
 
-##Version 1.0.4:
+## Version 1.0.4:
 - All data transfered on Parse datastore
